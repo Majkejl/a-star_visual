@@ -1,4 +1,5 @@
 #pragma once
+#define SDL_MAIN_HANDLED // idk why but thank you stack overflow
 #include <SDL.h>
 
 struct Renderer {

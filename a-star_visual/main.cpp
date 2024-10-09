@@ -8,5 +8,7 @@ int main()
 
 	Renderer r(width, height);
 
+	while (true);
+
 	return 0;
 }

@@ -39,6 +39,7 @@ bool A_star<T>::run()
 			for (int j = -1; j <= 1; j++)
 			{
 				if (end) return false;
+
 				Position new_p = n.p + Position{i, j};
 				if (!graph.in_bounds(new_p)) continue;
 				if (new_p == target)

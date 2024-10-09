@@ -2,12 +2,8 @@
 #include <vector>
 #include <exception>
 #include <set>
-#include "graph.hpp"
-
-const int DEFAULT_SIZE = 10;
 
 enum class blocks { empty, wall, start, target };
-
 
 struct Position
 {
