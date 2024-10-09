@@ -11,10 +11,15 @@ struct Renderer {
 	int grid_w;
 	int grid_h;
 
+	int block_w;
+	int block_h;
+
 	Renderer(int w, int h, int g_w, int g_h);
 	~Renderer();
 
 	inline void present() { SDL_RenderPresent(gRenderer); }
+
+	void get_block_size();
 
 	void draw_grid();
 

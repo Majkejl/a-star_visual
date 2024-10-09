@@ -46,27 +46,29 @@ Renderer::~Renderer()
 	SDL_Quit();
 }
 
+void Renderer::get_block_size()
+{
+	int w, h;
+	SDL_GetWindowSize(gWindow, &w, &h);
+
+	block_w = w / grid_w;
+	block_h = h / grid_h;
+}
+
 void Renderer::draw_grid() // TODO add viewport to keep squares square
 {
 	SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(gRenderer);
-	int w, h;
-	SDL_GetWindowSize(gWindow, &w, &h);
-
-	int block_w = w / grid_w;
-	int block_h = h / grid_h;
-
 
 	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	for (int i = block_h; i < h; i += block_h)
+	for (int i = 1; i < grid_h; ++i)
 	{
-		SDL_RenderDrawLine(gRenderer, 0, i, w, i);
+		SDL_RenderDrawLine(gRenderer, 0, i * block_h, grid_w * block_w, i * block_h);
 	}
 
-	for (int i = block_w; i < w; i += block_w)
+	for (int i = 1; i < grid_w; ++i)
 	{
-		SDL_RenderDrawLine(gRenderer, i, 0, i, h);
+		SDL_RenderDrawLine(gRenderer, i * block_w, 0, i * block_w, grid_h * block_w);
 	}
-
-	
 }
+
