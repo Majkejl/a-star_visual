@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="a-star.hpp" />
+    <ClInclude Include="data.hpp" />
     <ClInclude Include="graph.hpp" />
     <ClInclude Include="renderer.hpp" />
     <ClInclude Include="utils.hpp" />
