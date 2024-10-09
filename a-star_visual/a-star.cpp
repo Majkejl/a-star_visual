@@ -1,10 +1,10 @@
 #include "a-star.hpp"
 
 template<typename T>
-A_star<T>::A_star(T& g, Position s, Position t) : graph{ g }, start{ s }, target{ t } {}
+A_star<T>::A_star(T& g, Renderer& r, Position s, Position t) : graph{ g }, render{ r }, start { s }, target{ t } {}
 
 template<typename T>
-A_star<T>::A_star(T& g) : A_star<T>(g, {0,0}, {0,0})
+A_star<T>::A_star(T& g, Renderer& r) : A_star<T>(g, r, {0,0}, {0,0})
 {
 	int found = 0;
 	for (int y = 0; y < graph.height(); y++)

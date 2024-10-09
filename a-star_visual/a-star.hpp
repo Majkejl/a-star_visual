@@ -6,11 +6,13 @@
 #include <queue>
 #include <set>
 #include "utils.hpp"
+#include "renderer.hpp"
 
 template<typename T>
 class A_star 
 {
 	T& graph;
+	Renderer& render;
 	g_set visited;
 	Position start;
 	Position target;
@@ -19,8 +21,8 @@ class A_star
 	bool end = false;
 
 public:
-	A_star(T& graph, Position s, Position t);
-	A_star(T& graph);
+	A_star(T& graph, Renderer& r, Position s, Position t);
+	A_star(T& graph, Renderer& r);
 
 	bool run();
 };
