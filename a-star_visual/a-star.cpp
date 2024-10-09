@@ -23,42 +23,47 @@ A_star<T>::A_star(T& g, Renderer& r) : A_star<T>(g, r, {0,0}, {0,0})
 }
 
 template<typename T>
+bool A_star<T>::step(que_t& que)
+{
+	Node n = que.top(); // TODO color current point
+	visited.emplace(n);
+
+	for (int i = -1; i <= 1; i++)
+	{
+		for (int j = -1; j <= 1; j++)
+		{
+			if (end) return false;
+
+			Position new_p = n.p + Position{ i, j };
+			if (!graph.in_bounds(new_p)) continue;
+			if (new_p == target)
+			{
+				target_n = { &n, target, blocks::target, n.g + 1, 0 }; // TODO color target
+				return true;
+			}
+
+			Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p };
+			auto existing = visited.find(tmp);
+			if (existing != visited.end())
+			{
+				if (tmp.f() > existing->f()) continue;
+				visited.erase(existing);
+				visited.insert(tmp);
+			}
+			que.emplace(tmp); // TODO draw new line
+		}
+	}
+}
+
+template<typename T>
 bool A_star<T>::run()
 {
-	std::priority_queue<Node, std::vector<Node>, std::greater<Node>> que;
+	que_t que;
 	que.emplace(nullptr, start, blocks::start, 0, start - target );
-
 
 	while (!que.empty())
 	{
-		Node n = que.top(); // TODO color current point
-		visited.emplace(n);
-
-		for (int i = -1; i <= 1; i++)
-		{
-			for (int j = -1; j <= 1; j++)
-			{
-				if (end) return false;
-
-				Position new_p = n.p + Position{i, j};
-				if (!graph.in_bounds(new_p)) continue;
-				if (new_p == target)
-				{
-					target_n = { &n, target, blocks::target, n.g + 1, 0 }; // TODO color target
-					return true;
-				}
-
-				Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p};
-				auto existing = visited.find(tmp);
-				if (existing != visited.end())
-				{
-					if (tmp.f() > existing->f()) continue;
-					visited.erase(existing);
-					visited.insert(tmp);
-				}
-				que.emplace(tmp); // TODO draw new line
-			}
-		}
+		step(que);
 	}
 	return false;
 }

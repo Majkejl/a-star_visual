@@ -8,6 +8,8 @@
 #include "utils.hpp"
 #include "renderer.hpp"
 
+using que_t = std::priority_queue<Node, std::vector<Node>, std::greater<Node>>;
+
 template<typename T>
 class A_star 
 {
@@ -24,6 +26,8 @@ public:
 	A_star(T& graph, Renderer& r, Position s, Position t);
 	A_star(T& graph, Renderer& r);
 
+
+	bool step(que_t& que);
 	bool run();
 };
 
