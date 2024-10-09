@@ -18,6 +18,15 @@
     <ClCompile Include="a-star.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render.hpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="a-star.hpp">
