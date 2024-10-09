@@ -1,10 +1,11 @@
 #include "a-star.hpp"
 
 template<typename T>
-Node a_star(T graph, g_set &visited)
+A_star<T>::A_star(T g, Position s, Position t) : graph{ g }, start{ s }, target{ t } {}
+
+template<typename T>
+A_star<T>::A_star(T g) : A_star<T>(g, {0,0}, {0,0})
 {
-	Position start;
-	Position target;
 	int found = 0;
 	for (int y = 0; y < graph.height(); y++)
 	{
@@ -21,8 +22,8 @@ Node a_star(T graph, g_set &visited)
 	return a_star(graph, start, target, visited);
 }
 
-template<typename T> // TODO add requirements
-Node a_star(T graph, Position start, Position target, g_set &visited)
+template<typename T>
+Node A_star<T>::run()
 {
 	std::priority_queue<Node, std::vector<Node>, std::greater<Node>> que;
 	que.emplace(nullptr, start, blocks::start, 0, start - target );
