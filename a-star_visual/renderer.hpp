@@ -25,5 +25,5 @@ struct Renderer {
 	void draw_grid();
 	void draw_wall(int x, int y, int rgb);
 	void draw_line(int x1, int y1, int x2, int y2, int rgb);
-
+	void draw_circle(int x, int y, int rgb);
 };

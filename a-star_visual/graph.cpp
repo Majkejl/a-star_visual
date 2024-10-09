@@ -2,8 +2,8 @@
 
 Graph::Graph(plane_t _p) : plane{ std::make_unique<plane_t>(_p) } 
 {
-	w = plane->data()->size();
-	h = plane->size();
+	w = static_cast<int>(plane->data()->size());
+	h = static_cast<int>(plane->size());
 }
 
 Graph::Graph(int _w, int _h) : plane{ std::make_unique<plane_t>() }, w{ _w }, h{ _h }
