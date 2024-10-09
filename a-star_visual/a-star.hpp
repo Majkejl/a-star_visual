@@ -14,13 +14,14 @@ class A_star
 	g_set visited;
 	Position start;
 	Position target;
+	Node target_n;
 	bool end = false;
 
 public:
 	A_star(T graph, Position s, Position t);
 	A_star(T graph);
 
-	Node run();
+	bool run();
 };
 
 

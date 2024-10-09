@@ -23,7 +23,7 @@ A_star<T>::A_star(T g) : A_star<T>(g, {0,0}, {0,0})
 }
 
 template<typename T>
-Node A_star<T>::run()
+bool A_star<T>::run()
 {
 	std::priority_queue<Node, std::vector<Node>, std::greater<Node>> que;
 	que.emplace(nullptr, start, blocks::start, 0, start - target );
@@ -38,9 +38,14 @@ Node A_star<T>::run()
 		{
 			for (int j = -1; j <= 1; j++)
 			{
+				if (end) return false;
 				Position new_p = n.p + Position{i, j};
 				if (!graph.in_bounds(new_p)) continue;
-				if (new_p == target) return { &n, target, blocks::target, n.g + 1, 0 }; // TODO color target
+				if (new_p == target)
+				{
+					target_n = { &n, target, blocks::target, n.g + 1, 0 }; // TODO color target
+					return true;
+				}
 
 				Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p};
 				auto existing = visited.find(tmp);
@@ -54,5 +59,5 @@ Node A_star<T>::run()
 			}
 		}
 	}
-	return Node();
+	return false;
 }
