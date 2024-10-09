@@ -14,17 +14,19 @@ struct Renderer {
 	int block_w;
 	int block_h;
 
+	const int wall_color = 0xFFFFFF;
+
 	Renderer(int w, int h, int g_w, int g_h);
 	~Renderer();
 
 	inline void present() { SDL_RenderPresent(gRenderer); }
 
 	void get_block_size();
+	void set_color(int rgb);
 
 	void draw_grid();
-
-	void draw_square(int x, int y);
-
+	void draw_wall(int x, int y, int rgb);
+	void draw_wall(int x, int y);
 	void draw_line(int x1, int y1, int x2, int y2);
 
 };

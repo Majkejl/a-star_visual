@@ -55,6 +55,11 @@ void Renderer::get_block_size()
 	block_h = h / grid_h;
 }
 
+void Renderer::set_color(int rgb)
+{
+	SDL_SetRenderDrawColor(gRenderer, rgb >> 16, rgb >> 8, rgb, 0xFF);
+}
+
 void Renderer::draw_grid() // TODO add viewport to keep squares square
 {
 	SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
@@ -72,3 +77,13 @@ void Renderer::draw_grid() // TODO add viewport to keep squares square
 	}
 }
 
+void Renderer::draw_wall(int x, int y, int rgb)
+{
+	set_color(rgb);
+
+}
+
+void Renderer::draw_wall(int x, int y)
+{
+	draw_wall(x, y, wall_color);
+}
