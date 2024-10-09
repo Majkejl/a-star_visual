@@ -2,7 +2,7 @@
 #include "renderer.hpp"
 
 
-Renderer::Renderer(int w, int h)
+Renderer::Renderer(int w, int h, int g_w, int g_h) : grid_w{ g_w }, grid_h{ g_h }
 {
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -44,4 +44,29 @@ Renderer::~Renderer()
 	gRenderer = NULL;
 
 	SDL_Quit();
+}
+
+void Renderer::draw_grid() // TODO add viewport to keep squares square
+{
+	SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderClear(gRenderer);
+	int w, h;
+	SDL_GetWindowSize(gWindow, &w, &h);
+
+	int block_w = w / grid_w;
+	int block_h = h / grid_h;
+
+
+	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	for (int i = block_h; i < h; i += block_h)
+	{
+		SDL_RenderDrawLine(gRenderer, 0, i, w, i);
+	}
+
+	for (int i = block_w; i < w; i += block_w)
+	{
+		SDL_RenderDrawLine(gRenderer, i, 0, i, h);
+	}
+
+	
 }

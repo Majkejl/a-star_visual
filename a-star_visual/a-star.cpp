@@ -54,7 +54,7 @@ bool A_star<T>::run()
 				{
 					if (tmp.f() > existing->f()) continue;
 					visited.erase(existing);
-					visited.insert(tmp); // TODO remove old line
+					visited.insert(tmp);
 				}
 				que.emplace(tmp); // TODO draw new line
 			}

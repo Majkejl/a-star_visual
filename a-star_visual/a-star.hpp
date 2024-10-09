@@ -14,6 +14,7 @@ class A_star
 	g_set visited;
 	Position start;
 	Position target;
+	Position current;
 	Node target_n;
 	bool end = false;
 
