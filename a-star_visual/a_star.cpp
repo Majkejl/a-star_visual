@@ -1,10 +1,8 @@
-#include "a-star.hpp"
+#include "a_star.hpp"
 
-template<typename T>
-A_star<T>::A_star(T& g, Renderer& r, Position s, Position t) : graph{ g }, render{ r }, start { s }, target{ t } {}
+A_star<Graph>::A_star(Graph& g, Renderer& r, Position s, Position t) : graph{ g }, render{ r }, start{ s }, target{ t } {}
 
-template<typename T>
-A_star<T>::A_star(T& g, Renderer& r) : A_star<T>(g, r, {0,0}, {0,0})
+A_star<Graph>::A_star(Graph& g, Renderer& r) : A_star<Graph>(g, r, {0,0}, {0,0})
 {
 	int found = 0;
 	for (int y = 0; y < graph.height(); y++)
@@ -18,12 +16,9 @@ A_star<T>::A_star(T& g, Renderer& r) : A_star<T>(g, r, {0,0}, {0,0})
 		}
 		if (found == 2) break;
 	}
-
-	return a_star(graph, start, target, visited);
 }
 
-template<typename T>
-bool A_star<T>::step(que_t& que)
+bool A_star<Graph>::step(que_t& que)
 {
 	Node n = que.top(); // TODO color current point
 	visited.emplace(n);
@@ -55,8 +50,7 @@ bool A_star<T>::step(que_t& que)
 	}
 }
 
-template<typename T>
-bool A_star<T>::run()
+bool A_star<Graph>::run()
 {
 	que_t que;
 	que.emplace(nullptr, start, blocks::start, 0, start - target );
@@ -65,9 +59,9 @@ bool A_star<T>::run()
 	{
 		// rendering
 		render.draw_grid();	
-		for (int i = 0; i < graph.h; i++)
+		for (int i = 0; i < graph.height(); i++)
 		{
-			for (int j = 0; j < graph.w; j++)
+			for (int j = 0; j < graph.width(); j++)
 			{
 				int rgb = 0;
 				switch (graph.get(j, i))
@@ -85,6 +79,8 @@ bool A_star<T>::run()
 				render.draw_wall(j, i, rgb);
 			}
 		}
+
+		render.present();
 
 		// algorithm
 		step(que);

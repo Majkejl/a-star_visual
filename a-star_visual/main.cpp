@@ -1,7 +1,6 @@
-#include "a-star.hpp"
-#include "renderer.hpp"
 #include "graph.hpp"
 #include "data.hpp"
+#include "a_star.hpp"
 
 int main()
 {
@@ -13,6 +12,8 @@ int main()
 	A_star<Graph> as(g, r);
 
 	as.run();
+
+	while (true);
 
 	return 0;
 }

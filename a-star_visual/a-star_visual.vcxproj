@@ -139,14 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="a-star.cpp" />
+    <ClCompile Include="a_star.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="a-star.hpp" />
+    <ClInclude Include="a_star.hpp" />
     <ClInclude Include="data.hpp" />
     <ClInclude Include="graph.hpp" />
     <ClInclude Include="renderer.hpp" />

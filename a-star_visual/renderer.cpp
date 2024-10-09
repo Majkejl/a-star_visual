@@ -4,6 +4,8 @@
 
 Renderer::Renderer(int w, int h, int g_w, int g_h) : grid_w{ g_w }, grid_h{ g_h }
 {
+	block_w = w / grid_w;
+	block_h = h / grid_h;
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -82,7 +84,7 @@ void Renderer::draw_wall(int x, int y, int rgb = 0xFFFFFF)
 	set_color(rgb);
 
 	SDL_Rect rect{ x * block_w, y * block_h, block_w, block_h};
-	SDL_RenderDrawRect(gRenderer, &rect);
+	SDL_RenderFillRect(gRenderer, &rect);
 }
 
 void Renderer::draw_line(int x1, int y1, int x2, int y2, int rgb = 0xFFFFFF)

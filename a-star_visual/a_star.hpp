@@ -7,6 +7,7 @@
 #include <set>
 #include "utils.hpp"
 #include "renderer.hpp"
+#include "graph.hpp"
 
 using que_t = std::priority_queue<Node, std::vector<Node>, std::greater<Node>>;
 
@@ -30,4 +31,4 @@ public:
 	bool run();
 };
 
-
+//#include "a_star.cpp" // bruh
