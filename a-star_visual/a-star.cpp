@@ -63,6 +63,30 @@ bool A_star<T>::run()
 
 	while (!que.empty())
 	{
+		// rendering
+		render.draw_grid();	
+		for (int i = 0; i < graph.h; i++)
+		{
+			for (int j = 0; j < graph.w; j++)
+			{
+				int rgb = 0;
+				switch (graph.get(j, i))
+				{
+				case blocks::start:
+					rgb = 0x00FF00;
+					break;
+				case blocks::target:
+					rgb = 0xFF0000;
+					break;
+				case blocks::wall:
+					rgb = 0xFFFFFF;
+					break;
+				}
+				render.draw_wall(j, i, rgb);
+			}
+		}
+
+		// algorithm
 		step(que);
 	}
 	return false;

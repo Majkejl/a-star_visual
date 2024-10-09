@@ -26,7 +26,6 @@ public:
 	A_star(T& graph, Renderer& r, Position s, Position t);
 	A_star(T& graph, Renderer& r);
 
-
 	bool step(que_t& que);
 	bool run();
 };
