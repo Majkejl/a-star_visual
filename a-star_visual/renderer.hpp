@@ -14,7 +14,7 @@ struct Renderer {
 	int block_w;
 	int block_h;
 
-	const int wall_color = 0xFFFFFF;
+	static const int wall_color = 0xFFFFFF;
 
 	Renderer(int w, int h, int g_w, int g_h);
 	~Renderer();
@@ -26,7 +26,6 @@ struct Renderer {
 
 	void draw_grid();
 	void draw_wall(int x, int y, int rgb);
-	void draw_wall(int x, int y);
 	void draw_line(int x1, int y1, int x2, int y2);
 
 };
