@@ -10,7 +10,7 @@
 template<typename T>
 class A_star 
 {
-	T graph;
+	T& graph;
 	g_set visited;
 	Position start;
 	Position target;
@@ -19,8 +19,8 @@ class A_star
 	bool end = false;
 
 public:
-	A_star(T graph, Position s, Position t);
-	A_star(T graph);
+	A_star(T& graph, Position s, Position t);
+	A_star(T& graph);
 
 	bool run();
 };

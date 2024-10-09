@@ -1,6 +1,7 @@
 #include "a-star.hpp"
 #include "renderer.hpp"
 #include "graph.hpp"
+#include "data.hpp"
 
 int main()
 {
@@ -8,9 +9,9 @@ int main()
 	constexpr int height = 720;
 
 
-	Graph();
-	Renderer r(width, height, DEFAULT_SIZE, DEFAULT_SIZE);
-	
+	Graph g(p1);
+	Renderer r(width, height, g.width(), g.height());
+	A_star<Graph> as(g);
 
 
 	return 0;
