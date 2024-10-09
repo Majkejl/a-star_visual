@@ -18,10 +18,7 @@
     <ClCompile Include="a-star.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="render.hpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render.cpp">
+    <ClCompile Include="renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -42,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

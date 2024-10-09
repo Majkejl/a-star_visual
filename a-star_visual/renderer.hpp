@@ -8,9 +8,6 @@ struct Renderer {
 	SDL_Surface* gCurrentSurface = NULL;
 	SDL_Renderer* gRenderer = NULL;
 
-
 	Renderer(int w, int h);
 	~Renderer();
-
-	
 };

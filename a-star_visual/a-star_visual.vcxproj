@@ -142,13 +142,13 @@
     <ClCompile Include="a-star.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="render.cpp" />
-    <ClCompile Include="render.hpp" />
+    <ClCompile Include="renderer.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="a-star.hpp" />
     <ClInclude Include="graph.hpp" />
+    <ClInclude Include="renderer.hpp" />
     <ClInclude Include="utils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

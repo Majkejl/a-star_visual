@@ -1,5 +1,5 @@
 #include "a-star.hpp"
-#include "render.hpp"
+#include "renderer.hpp"
 
 int main()
 {

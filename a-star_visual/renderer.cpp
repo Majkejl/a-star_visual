@@ -1,5 +1,5 @@
 #include <iostream>
-#include "render.hpp"
+#include "renderer.hpp"
 
 
 Renderer::Renderer(int w, int h)
