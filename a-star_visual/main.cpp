@@ -11,9 +11,9 @@ int main()
 	Renderer r(width, height, g.width(), g.height());
 	A_star<Graph> as(g, r);
 
-	r.draw_grid();
-	r.present();
 	as.run();
+
+	r.present();
 
 
 

@@ -1,6 +1,9 @@
 #include "a_star.hpp"
 
-A_star<Graph>::A_star(Graph& g, Renderer& r, Position s, Position t) : graph{ g }, render{ r }, start{ s }, target{ t } {}
+A_star<Graph>::A_star(Graph& g, Renderer& r, Position s, Position t) : graph{ g }, render{ r }, start{ s }, target{ t } 
+{
+	visited.emplace(nullptr, start, blocks::start, 0, start - target);
+}
 
 A_star<Graph>::A_star(Graph& g, Renderer& r) : A_star<Graph>(g, r, {0,0}, {0,0})
 {
@@ -22,7 +25,6 @@ bool A_star<Graph>::step(que_t& que)
 {
 	Node n = que.top(); // TODO color current point
 	que.pop();
-	visited.emplace(n);
 
 	for (Position pos : std::vector<Position>{ 
 				{ -1, 0 }, { 1, 0 }, { 0, 1 }, { 0, -1 } 
@@ -41,6 +43,7 @@ bool A_star<Graph>::step(que_t& que)
 
 		Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p };
 		if (visited.contains(tmp)) continue;
+		visited.emplace(tmp);
 		render.draw_line(n.p.x, n.p.y, tmp.p.x, tmp.p.y, 0xFFFF00);
 		que.emplace(tmp); // TODO draw new line
 	}
@@ -49,34 +52,31 @@ bool A_star<Graph>::step(que_t& que)
 bool A_star<Graph>::run()
 {
 	que_t que;
-	que.emplace(nullptr, start, blocks::start, 0, start - target );
-
+	que.push(*visited.begin());
+	// rendering
+	render.draw_grid();
+	for (int i = 0; i < graph.height(); i++)
+	{
+		for (int j = 0; j < graph.width(); j++)
+		{
+			int rgb = 0;
+			switch (graph.get(j, i))
+			{
+			case blocks::start:
+				rgb = 0x00FF00;
+				break;
+			case blocks::target:
+				rgb = 0xFF0000;
+				break;
+			case blocks::wall:
+				rgb = 0xFFFFFF;
+				break;
+			}
+			render.draw_wall(j, i, rgb);
+		}
+	}
 	while (!que.empty())
 	{
-		// rendering
-		render.draw_grid();	
-		for (int i = 0; i < graph.height(); i++)
-		{
-			for (int j = 0; j < graph.width(); j++)
-			{
-				int rgb = 0;
-				switch (graph.get(j, i))
-				{
-				case blocks::start:
-					rgb = 0x00FF00;
-					break;
-				case blocks::target:
-					rgb = 0xFF0000;
-					break;
-				case blocks::wall:
-					rgb = 0xFFFFFF;
-					break;
-				}
-				render.draw_wall(j, i, rgb);
-			}
-		}
-
-
 		// algorithm
 		step(que);
 		render.present();
