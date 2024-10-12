@@ -6,7 +6,6 @@
 #include <queue>
 #include <set>
 #include "utils.hpp"
-#include "renderer.hpp"
 #include "graph.hpp"
 
 using que_t = std::priority_queue<Node, std::vector<Node>, std::greater<Node>>;
@@ -15,7 +14,6 @@ template<typename T>
 class A_star 
 {
 	T& graph;
-	Renderer& render;
 	g_set visited;
 	Position start;
 	Position target;
@@ -24,8 +22,8 @@ class A_star
 	bool end = false;
 
 public:
-	A_star(T& graph, Renderer& r, Position s, Position t);
-	A_star(T& graph, Renderer& r);
+	A_star(T& graph, Position s, Position t);
+	A_star(T& graph);
 
 	bool step(que_t& que);
 	bool run();

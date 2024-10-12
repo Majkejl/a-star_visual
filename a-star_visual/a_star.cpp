@@ -1,11 +1,11 @@
 #include "a_star.hpp"
 
-A_star<Graph>::A_star(Graph& g, Renderer& r, Position s, Position t) : graph{ g }, render{ r }, start{ s }, target{ t } 
+A_star<Graph>::A_star(Graph& g, Position s, Position t) : graph{ g }, render{ r }, start{ s }, target{ t } 
 {
 	visited.emplace(nullptr, start, blocks::start, 0, start - target);
 }
 
-A_star<Graph>::A_star(Graph& g, Renderer& r) : A_star<Graph>(g, r, {0,0}, {0,0})
+A_star<Graph>::A_star(Graph& g) : A_star<Graph>(g, r, {0,0}, {0,0})
 {
 	int found = 0;
 	for (int y = 0; y < graph.height(); y++)
@@ -23,7 +23,7 @@ A_star<Graph>::A_star(Graph& g, Renderer& r) : A_star<Graph>(g, r, {0,0}, {0,0})
 
 bool A_star<Graph>::step(que_t& que)
 {
-	Node n = que.top(); // TODO color current point
+	Node n = que.top();
 	que.pop();
 
 	for (Position pos : std::vector<Position>{ 
@@ -37,15 +37,14 @@ bool A_star<Graph>::step(que_t& que)
 				continue;
 		if (new_p == target)
 		{
-			target_n = { &n, target, blocks::target, n.g + 1, 0 }; // TODO color target
+			target_n = { &n, target, blocks::target, n.g + 1, 0 };
 			return true;
 		}
 
 		Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p };
 		if (visited.contains(tmp)) continue;
 		visited.emplace(tmp);
-		render.draw_line(n.p.x, n.p.y, tmp.p.x, tmp.p.y, 0xFFFF00);
-		que.emplace(tmp); // TODO draw new line
+		que.emplace(tmp);
 	}
 }
 
@@ -53,33 +52,10 @@ bool A_star<Graph>::run()
 {
 	que_t que;
 	que.push(*visited.begin());
-	// rendering
-	render.draw_grid();
-	for (int i = 0; i < graph.height(); i++)
-	{
-		for (int j = 0; j < graph.width(); j++)
-		{
-			int rgb = 0;
-			switch (graph.get(j, i))
-			{
-			case blocks::start:
-				rgb = 0x00FF00;
-				break;
-			case blocks::target:
-				rgb = 0xFF0000;
-				break;
-			case blocks::wall:
-				rgb = 0xFFFFFF;
-				break;
-			}
-			render.draw_wall(j, i, rgb);
-		}
-	}
+
 	while (!que.empty())
 	{
-		// algorithm
 		step(que);
-		render.present();
 	}
 	return false;
 }
