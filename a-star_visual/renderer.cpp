@@ -57,9 +57,9 @@ void Renderer::get_block_size()
 	block_h = h / grid_h;
 }
 
-void Renderer::set_color(int rgb)
+void Renderer::set_color(int rgb, int alpha)
 {
-	SDL_SetRenderDrawColor(gRenderer, rgb >> 16, rgb >> 8, rgb, 0xFF);
+	SDL_SetRenderDrawColor(gRenderer, rgb >> 16, rgb >> 8, rgb, alpha);
 }
 
 void Renderer::draw_grid() // TODO add viewport to keep squares square
@@ -79,22 +79,22 @@ void Renderer::draw_grid() // TODO add viewport to keep squares square
 	}
 }
 
-void Renderer::draw_wall(int x, int y, int rgb = 0xFFFFFF)
+void Renderer::draw_wall(int x, int y, int rgb, int alpha)
 {
-	set_color(rgb);
+	set_color(rgb, alpha);
 
 	SDL_Rect rect{ x * block_w, y * block_h, block_w, block_h};
 	SDL_RenderFillRect(gRenderer, &rect);
 }
 
-void Renderer::draw_line(int x1, int y1, int x2, int y2, int rgb = 0xFFFFFF)
+void Renderer::draw_line(int x1, int y1, int x2, int y2, int rgb, int alpha)
 {
-	set_color(rgb);
+	set_color(rgb, alpha);
 	SDL_RenderDrawLine(gRenderer, x1 * block_w + block_w / 2, y1 * block_h + block_h / 2,
 								  x2 * block_w + block_w / 2, y2 * block_h + block_h / 2);
 }
 
-void Renderer::draw_circle(int x, int y, int rgb = 0xFF00FF)
+void Renderer::draw_circle(int x, int y, int rgb = 0xFF00FF, int alpha = 0xFF)
 {
 	// TODO maybe next time
 }
