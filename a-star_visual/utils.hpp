@@ -27,7 +27,7 @@ struct Node
 	int h;
 	inline int f() const { return g + h; }
 
-	friend bool operator>(Node lhs, Node other);
+	friend bool operator<(Node lhs, Node other);
 	bool operator==(Node& other);
 };
-using g_set = std::set<Node, std::greater<Node>>;
+using g_set = std::set<Node>;

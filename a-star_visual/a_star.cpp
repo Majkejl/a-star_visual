@@ -21,16 +21,18 @@ A_star<Graph>::A_star(Graph& g, Renderer& r) : A_star<Graph>(g, r, {0,0}, {0,0})
 bool A_star<Graph>::step(que_t& que)
 {
 	Node n = que.top(); // TODO color current point
+	que.pop();
 	visited.emplace(n);
 
 	for (int i = -1; i <= 1; i++)
 	{
 		for (int j = -1; j <= 1; j++)
 		{
-			if (end) return false;
-
 			Position new_p = n.p + Position{ i, j };
-			if (!graph.in_bounds(new_p)) continue;
+			if ( (i == 0 && j == 0) 
+				 || !graph.in_bounds(new_p) 
+				 || graph.get(new_p) == blocks::wall) 
+					continue;
 			if (new_p == target)
 			{
 				target_n = { &n, target, blocks::target, n.g + 1, 0 }; // TODO color target

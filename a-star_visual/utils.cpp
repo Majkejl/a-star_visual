@@ -18,11 +18,10 @@ bool Position::operator==(Position other)
 	return x == other.x && y == other.y;
 }
 
-bool operator>(Node lhs, Node other)
+bool operator<(Node lhs, Node other)
 {
-	if (lhs.f() != other.f()) return lhs.f() > other.f();
-	if (lhs.p.x != other.p.x) return lhs.p.x > other.p.x;
-	return lhs.p.y > other.p.y;
+	if (lhs.p.x != other.p.x) return lhs.p.x < other.p.x;
+	return lhs.p.y < other.p.y;
 }
 
 bool Node::operator==(Node& other)
