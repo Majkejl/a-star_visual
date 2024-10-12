@@ -9,7 +9,7 @@
 #include "renderer.hpp"
 #include "graph.hpp"
 
-using que_t = std::priority_queue<Node>;
+using que_t = std::priority_queue<Node, std::vector<Node>, std::greater<Node>>;
 
 template<typename T>
 class A_star 

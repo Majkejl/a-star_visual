@@ -47,6 +47,7 @@ bool A_star<Graph>::step(que_t& que)
 			visited.erase(existing);
 			visited.insert(tmp);
 		}
+		render.draw_line(n.p.x, n.p.y, tmp.p.x, tmp.p.y, 0xFFFF00);
 		que.emplace(tmp); // TODO draw new line
 	}
 }
@@ -81,10 +82,10 @@ bool A_star<Graph>::run()
 			}
 		}
 
-		render.present();
 
 		// algorithm
 		step(que);
+		render.present();
 	}
 	return false;
 }

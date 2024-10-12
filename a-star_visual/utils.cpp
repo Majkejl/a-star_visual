@@ -24,6 +24,13 @@ bool operator<(Node lhs, Node other)
 	return lhs.p.y < other.p.y;
 }
 
+bool operator>(Node lhs, Node other)
+{
+	if (lhs.f() != other.f()) return lhs.f() > other.f();
+	if (lhs.p.x != other.p.x) return lhs.p.x > other.p.x;
+	return lhs.p.y > other.p.y;
+}
+
 bool Node::operator==(Node& other)
 {
 	return p == other.p;

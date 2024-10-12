@@ -89,7 +89,9 @@ void Renderer::draw_wall(int x, int y, int rgb = 0xFFFFFF)
 
 void Renderer::draw_line(int x1, int y1, int x2, int y2, int rgb = 0xFFFFFF)
 {
-	SDL_RenderDrawLine(gRenderer, x1, y1, x2, y2);
+	set_color(rgb);
+	SDL_RenderDrawLine(gRenderer, x1 * block_w + block_w / 2, y1 * block_h + block_h / 2,
+								  x2 * block_w + block_w / 2, y2 * block_h + block_h / 2);
 }
 
 void Renderer::draw_circle(int x, int y, int rgb = 0xFF00FF)
