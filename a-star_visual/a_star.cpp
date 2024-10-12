@@ -40,13 +40,7 @@ bool A_star<Graph>::step(que_t& que)
 		}
 
 		Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p };
-		auto existing = visited.find(tmp);
-		if (existing != visited.end())
-		{
-			if (tmp.f() > existing->f()) continue;
-			visited.erase(existing);
-			visited.insert(tmp);
-		}
+		if (visited.contains(tmp)) continue;
 		render.draw_line(n.p.x, n.p.y, tmp.p.x, tmp.p.y, 0xFFFF00);
 		que.emplace(tmp); // TODO draw new line
 	}
