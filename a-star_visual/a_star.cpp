@@ -1,11 +1,11 @@
 #include "a_star.hpp"
 
-A_star<Graph>::A_star(Graph& g, Position s, Position t) : graph{ g }, render{ r }, start{ s }, target{ t } 
+A_star<Graph>::A_star(Graph& g, Position s, Position t) : graph{ g }, start{ s }, target{ t } 
 {
-	visited.emplace(nullptr, start, blocks::start, 0, start - target);
+	visited.emplace(start, std::make_unique<Node>(nullptr, start, blocks::start, 0, start - target));
 }
 
-A_star<Graph>::A_star(Graph& g) : A_star<Graph>(g, r, {0,0}, {0,0})
+A_star<Graph>::A_star(Graph& g) : A_star<Graph>(g, {0,0}, {0,0})
 {
 	int found = 0;
 	for (int y = 0; y < graph.height(); y++)
@@ -37,13 +37,13 @@ bool A_star<Graph>::step(que_t& que)
 				continue;
 		if (new_p == target)
 		{
-			target_n = { &n, target, blocks::target, n.g + 1, 0 };
+			target_n = { visited.find(n.p)->second.get(), target, blocks::target, n.g + 1, 0 };
 			return true;
 		}
 
-		Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p };
-		if (visited.contains(tmp)) continue;
-		visited.emplace(tmp);
+		if (visited.contains(new_p)) continue;
+		Node tmp{ visited.find(n.p)->second.get(), new_p, graph.get(new_p), n.g + 1, target - new_p};
+		visited.emplace(new_p, std::make_unique<Node>(tmp));
 		que.emplace(tmp);
 	}
 }
@@ -51,7 +51,7 @@ bool A_star<Graph>::step(que_t& que)
 bool A_star<Graph>::run()
 {
 	que_t que;
-	que.push(*visited.begin());
+	que.push(*visited.begin()->second);
 
 	while (!que.empty())
 	{

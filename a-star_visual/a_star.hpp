@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cmath>
 #include <queue>
-#include <set>
+#include <map>
 #include "utils.hpp"
 #include "graph.hpp"
 
@@ -14,14 +14,15 @@ template<typename T>
 class A_star 
 {
 	T& graph;
-	g_set visited;
+	std::map<Position, std::unique_ptr<Node>> visited;
 	Position start;
 	Position target;
 	Position current;
-	Node target_n;
 	bool end = false;
 
 public:
+	Node target_n;
+
 	A_star(T& graph, Position s, Position t);
 	A_star(T& graph);
 

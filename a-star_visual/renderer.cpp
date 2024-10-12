@@ -67,7 +67,7 @@ void Renderer::draw_grid() // TODO add viewport to keep squares square
 	SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(gRenderer);
 
-	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetRenderDrawColor(gRenderer, 0x88, 0x88, 0x88, 0xFF);
 	for (int i = 1; i < grid_h; ++i)
 	{
 		SDL_RenderDrawLine(gRenderer, 0, i * block_h, grid_w * block_w, i * block_h);
@@ -83,7 +83,7 @@ void Renderer::draw_wall(int x, int y, int rgb, int alpha)
 {
 	set_color(rgb, alpha);
 
-	SDL_Rect rect{ x * block_w, y * block_h, block_w, block_h};
+	SDL_Rect rect{ x * block_w + 1, y * block_h + 1, block_w - 2, block_h - 2};
 	SDL_RenderFillRect(gRenderer, &rect);
 }
 

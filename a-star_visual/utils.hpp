@@ -14,6 +14,7 @@ struct Position
 	Position();
 
 	friend Position operator+(Position lhs, Position rhs);
+	friend bool operator<(Position lhs, Position other);
 	int operator-(Position other);
 	bool operator==(Position other);
 };
@@ -27,8 +28,6 @@ struct Node
 	int h;
 	inline int f() const { return g + h; }
 
-	friend bool operator<(Node lhs, Node other);
 	friend bool operator>(Node lhs, Node other);
 	bool operator==(Node& other);
 };
-using g_set = std::set<Node>;
