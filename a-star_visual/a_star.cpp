@@ -24,31 +24,30 @@ bool A_star<Graph>::step(que_t& que)
 	que.pop();
 	visited.emplace(n);
 
-	for (int i = -1; i <= 1; i++)
+	for (Position pos : std::vector<Position>{ 
+				{ -1, 0 }, { 1, 0 }, { 0, 1 }, { 0, -1 } 
+			})
 	{
-		for (int j = -1; j <= 1; j++)
+		Position new_p = n.p + pos;
+		if ( (pos.x == 0 && pos.y == 0) 
+			 || !graph.in_bounds(new_p) 
+			 || graph.get(new_p) == blocks::wall) 
+				continue;
+		if (new_p == target)
 		{
-			Position new_p = n.p + Position{ i, j };
-			if ( (i == 0 && j == 0) 
-				 || !graph.in_bounds(new_p) 
-				 || graph.get(new_p) == blocks::wall) 
-					continue;
-			if (new_p == target)
-			{
-				target_n = { &n, target, blocks::target, n.g + 1, 0 }; // TODO color target
-				return true;
-			}
-
-			Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p };
-			auto existing = visited.find(tmp);
-			if (existing != visited.end())
-			{
-				if (tmp.f() > existing->f()) continue;
-				visited.erase(existing);
-				visited.insert(tmp);
-			}
-			que.emplace(tmp); // TODO draw new line
+			target_n = { &n, target, blocks::target, n.g + 1, 0 }; // TODO color target
+			return true;
 		}
+
+		Node tmp{ &n, new_p, graph.get(new_p), n.g + 1, target - new_p };
+		auto existing = visited.find(tmp);
+		if (existing != visited.end())
+		{
+			if (tmp.f() > existing->f()) continue;
+			visited.erase(existing);
+			visited.insert(tmp);
+		}
+		que.emplace(tmp); // TODO draw new line
 	}
 }
 
