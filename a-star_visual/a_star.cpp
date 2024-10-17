@@ -42,6 +42,7 @@ bool A_star<Graph>::step(que_t& que)
 
 		que.emplace(visited.at(new_p).get());
 	}
+	return false;
 }
 
 bool A_star<Graph>::run()

@@ -21,7 +21,7 @@ class A_star
 	bool end = false;
 
 public:
-	Node* target_n == nullptr; // TODO make private + getter
+	Node* target_n = nullptr; // TODO make private + getter
 
 	A_star(T& graph, Position s, Position t);
 	A_star(T& graph);
