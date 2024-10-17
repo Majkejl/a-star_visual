@@ -10,7 +10,16 @@
 
 using que_t = std::priority_queue<Node*, std::vector<Node*>, N_cmp>;
 
-template<typename T>
+template<typename G>
+concept graph_c = requires(G g)
+{
+	{ g.height() } -> std::convertible_to<std::size_t>;
+	{ g.width() } -> std::convertible_to<std::size_t>;
+	{ g.get(Position()) } -> std::same_as<blocks>;
+	{ g.in_bounds(Position()) } -> std::convertible_to<bool>;
+};
+
+template<graph_c T>
 class A_star 
 {
 	T& graph;
@@ -30,7 +39,27 @@ public:
 	bool run();
 };
 
-template<typename T>
+template<graph_c T>
+A_star<T>::A_star(T& g, Position s, Position t) : graph{ g }, start{ s }, target{ t } {}
+
+template<graph_c T>
+A_star<T>::A_star(T& g) : A_star<T>(g, { 0,0 }, { 0,0 })
+{
+	int found = 0;
+	for (int y = 0; y < graph.height(); y++)
+	{
+		for (int x = 0; x < graph.width(); x++)
+		{
+			if (graph.get(x, y) == blocks::start) { start = { x, y }; ++found; }
+			else if (graph.get(x, y) == blocks::target) { target = { x, y }; ++found; }
+
+			if (found == 2) break;
+		}
+		if (found == 2) break;
+	}
+}
+
+template<graph_c T>
 bool A_star<T>::step(que_t& que)
 {
 	Node* n = que.top();
@@ -58,7 +87,7 @@ bool A_star<T>::step(que_t& que)
 	return false;
 }
 
-template<typename T>
+template<graph_c T>
 bool A_star<T>::run()
 {
 	visited.clear();
