@@ -1,3 +1,7 @@
 # a-star_visual
 
-Trying to implement a visual representation of A* algorithm
+Implementation of A* algorithm in C++ using SDL2 for visualization
+
+Trying to learn how to use templates and concepts, and practice algorithm on the side.
+
+
