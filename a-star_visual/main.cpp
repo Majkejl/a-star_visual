@@ -24,17 +24,20 @@ void draw_map(Renderer& r, Graph& g, A_star<Graph>& as)
 			case blocks::empty:
 				break;
 			} */
-			r.draw_wall(j, i, (g.get(j, i) == blocks::wall) ? 0xFFFFFF : 0);
+			if (g.get(j, i) == blocks::wall) r.draw_wall(j, i, 0xFFFFFF);
 		}
 	}
 
-	auto ptr = &as.target_n;
-	int g_max = ptr->g;
-	while (ptr != nullptr)
+	if (as.target_n != nullptr)
 	{
-		r.draw_wall(ptr->p.x, ptr->p.y, ((0xFF / g_max * ptr->g) << 16) + ((0xFF / g_max * (g_max - ptr->g) << 8)));
-		ptr = ptr->parent;
-	}
+		auto ptr = as.target_n;
+		int g_max = ptr->g;
+		while (ptr != nullptr)
+		{
+			r.draw_wall(ptr->p.x, ptr->p.y, ((0xFF / g_max * ptr->g) << 16) + ((0xFF / g_max * (g_max - ptr->g) << 8)));
+			ptr = ptr->parent;
+		}
+	} // TODO add else
 	r.present();
 }
 
@@ -53,7 +56,16 @@ int main()
 	draw_map(r, g, as);
 	r.present();
 
-	while (true);
+	SDL_Event e;
+	bool quit = false;
+	while (!quit)
+	{
+		while (SDL_PollEvent(&e) != 0)
+		{
+			if (e.type == SDL_QUIT) quit = true;
+			//else if (e.type == SDL_KEYDOWN); 
+		}
+	}
 
 	return 0;
 }

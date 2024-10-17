@@ -31,6 +31,12 @@ bool operator>(Node lhs, Node other)
 	return lhs.p.y > other.p.y;
 }
 
+bool N_cmp::operator()(const Node* lhs, const Node* other) const
+{
+	return (*lhs) > (*other);
+}
+
+
 bool Node::operator==(Node& other)
 {
 	return p == other.p;

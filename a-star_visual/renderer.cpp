@@ -83,7 +83,7 @@ void Renderer::draw_wall(int x, int y, int rgb, int alpha)
 {
 	set_color(rgb, alpha);
 
-	SDL_Rect rect{ x * block_w + 1, y * block_h + 1, block_w - 2, block_h - 2};
+	SDL_Rect rect{ x * block_w, y * block_h, block_w, block_h};
 	SDL_RenderFillRect(gRenderer, &rect);
 }
 

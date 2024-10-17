@@ -31,3 +31,8 @@ struct Node
 	friend bool operator>(Node lhs, Node other);
 	bool operator==(Node& other);
 };
+
+struct N_cmp
+{
+	bool operator()(const Node* lhs, const Node* other) const;
+};

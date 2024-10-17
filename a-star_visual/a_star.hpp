@@ -8,7 +8,7 @@
 #include "utils.hpp"
 #include "graph.hpp"
 
-using que_t = std::priority_queue<Node, std::vector<Node>, std::greater<Node>>;
+using que_t = std::priority_queue<Node*, std::vector<Node*>, N_cmp>;
 
 template<typename T>
 class A_star 
@@ -21,7 +21,7 @@ class A_star
 	bool end = false;
 
 public:
-	Node target_n;
+	Node* target_n == nullptr; // TODO make private + getter
 
 	A_star(T& graph, Position s, Position t);
 	A_star(T& graph);
